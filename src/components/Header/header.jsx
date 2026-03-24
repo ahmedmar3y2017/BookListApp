@@ -1,0 +1,38 @@
+import React from "react";
+
+const Header = ({ error }) => {
+  return (
+    <header className="bg-gray-900 text-white">
+      <div className="flex gap-6 p-4">
+        {error && <p className="text-red-500">{error}</p>}
+      </div>
+      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        {/* Logo */}
+        <h1 className="text-xl font-bold">MyApp</h1>
+
+        {/* Links */}
+        <nav className="space-x-6 hidden md:flex">
+          <a href="#" className="hover:text-gray-300">
+            Home
+          </a>
+          <a href="#" className="hover:text-gray-300">
+            About
+          </a>
+          <a href="#" className="hover:text-gray-300">
+            Services
+          </a>
+          <a href="#" className="hover:text-gray-300">
+            Contact
+          </a>
+        </nav>
+
+        {/* Button */}
+        <button className="bg-blue-500 px-4 py-2 rounded-lg hover:bg-blue-600">
+          Login
+        </button>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

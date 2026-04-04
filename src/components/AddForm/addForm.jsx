@@ -1,10 +1,11 @@
 import React, { use, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { insertBook } from "../../store/bookSlice";
 import { useFormik } from "formik";
 import { addBookSchema } from "../../util/AddFormValidation";
 
 const AddForm = () => {
+  const auth = useSelector((state) => state.auth); // to trigger re-render on auth state change
   // 1 - useRef solution
   const title = useRef(null);
   const price = useRef(null);
@@ -120,6 +121,7 @@ const AddForm = () => {
         <button
           type="submit"
           class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+          disabled={formik.isSubmitting || !formik.isValid || !auth.isLoggedIn}
         >
           Add Book
         </button>

@@ -1,16 +1,37 @@
 import React from "react";
+import { deleteBook } from "../../store/bookSlice";
 
-const BooksList = ({ isLoading, books }) => {
+const BooksList = ({
+  isLoading,
+  books,
+  isLoggedIn,
+  dispatch,
+  setBookSelected,
+}) => {
   const booksList =
     books.length > 0 ? (
       books.map((book) => (
         <tr class="hover:bg-gray-50" key={book.id}>
           <td class="p-3">{book.title}</td>
           <td class="p-3 text-center space-x-2">
-            <button class="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600">
+            <button
+              class="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
+              onClick={() => setBookSelected(book)}
+            >
               Read
             </button>
-            <button class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">
+            <button
+              class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
+              disabled={!isLoggedIn}
+              onClick={() =>
+                dispatch(deleteBook(book))
+                  .unwrap()
+                  .then((data) =>
+                    console.log("Book deleted successfully , data:", data),
+                  )
+                  .catch((err) => console.error("Delete failed:", err))
+              }
+            >
               Delete
             </button>
           </td>

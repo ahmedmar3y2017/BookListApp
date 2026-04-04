@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { reducer } from "./bookSlice";
+import { bookReducer } from "./bookSlice";
+import { authReducer } from "./authSlice";
+import { reportReducer } from "./reportSlice";
 
 const store = configureStore({
   reducer: {
-    books: reducer,
+    books: bookReducer,
+    auth: authReducer,
+    reports: reportReducer,
   },
 });
 

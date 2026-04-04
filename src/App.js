@@ -7,10 +7,14 @@ import AddForm from "./components/AddForm/addForm";
 import PostContainer from "./components/PostContainer/postContainer";
 import BooksList from "./components/BooksList/booksList";
 import BookInfo from "./components/BookInfo/bookInfo";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getBooks } from "./store/bookSlice";
 
 function App() {
+  const [bookSelected, setBookSelected] = useState(null);
+
+  const { isLoggedIn } = useSelector((state) => state.auth); // to trigger re-render on auth state change
+
   const { isLoading, error, books } = useSelector((state) => state.books);
   const dispatch = useDispatch();
 
@@ -28,12 +32,19 @@ function App() {
           <div className="flex gap-6 p-4">
             {/* Left: Book List */}
             <div className="w-2/3">
-              <BooksList isLoading={isLoading} error={error} books={books} />
+              <BooksList
+                isLoading={isLoading}
+                error={error}
+                books={books}
+                isLoggedIn={isLoggedIn}
+                dispatch={dispatch}
+                setBookSelected={setBookSelected}
+              />
             </div>
 
             {/* Right: Book Details */}
             <div className="w-1/3">
-              <BookInfo />
+              <BookInfo isLoggedIn={isLoggedIn} bookSelected={bookSelected} />
             </div>
           </div>{" "}
         </PostContainer>

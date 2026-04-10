@@ -9,6 +9,7 @@ import BooksList from "./components/BooksList/booksList";
 import BookInfo from "./components/BookInfo/bookInfo";
 import { useEffect, useState } from "react";
 import { getBooks } from "./store/bookSlice";
+import WithGuard from "./components/WithGuard/withGuard";
 
 function App() {
   const [bookSelected, setBookSelected] = useState(null);
@@ -27,7 +28,10 @@ function App() {
       <Header error={error}></Header>
 
       <Container>
-        <AddForm></AddForm>
+        {/* apply guard components */}
+        <WithGuard>
+          <AddForm></AddForm>
+        </WithGuard>
         <PostContainer>
           <div className="flex gap-6 p-4">
             {/* Left: Book List */}
